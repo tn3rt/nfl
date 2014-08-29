@@ -6,9 +6,9 @@ To test that the script correctly, open the Mongo shell and type:
 
 The output should be:
 
-admin (empty)
-local 0.078GB
-nfl   0.453GB
+admin (empty)<br>
+local 0.078GB<br>
+nfl   0.453GB<br>
 
 Then just type:
 
