@@ -9,10 +9,10 @@
     
     for j in $PLAYERS
     do
-        mongoimport -d nfl -c players --type csv --file "$j" --headerline
+        mongoimport -d nfl -c player --type csv --file "$j" --headerline
     done
 
     for k in $WEATHER
     do
-        mongoimport -d nfl -c players --type csv --file "$k" --headerline
+        mongoimport -d nfl -c weather --type csv --file "$k" --headerline
     done
