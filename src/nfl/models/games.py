@@ -19,15 +19,12 @@ class Game(Document):
         """Score at a particular play, default final"""
         return self.plays[play].home_score, self.plays[play].away_score
 
-    def away_score(self, play=-1):
-        """Score at a particular play, default final"""
-        return self.plays[play].away_score
-
     @property
     def winner(self):
-        if self.home_score() == self.away_score():
+        home_score, away_score = self.score()
+        if home_score == away_score:
             return None
-        if self.home_score() > self.away_score():
+        if home_score > away_score:
             return self.home
         else:
             return self.away
@@ -35,5 +32,5 @@ class Game(Document):
     def quarter(self, qtr):
         """Returns 0-indexed play number of first play of quarter"""
         pass
-        # TODO:
+        # TODO: Implement quarter marker
 

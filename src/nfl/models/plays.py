@@ -37,8 +37,14 @@ class Play(Document):
 
     @property
     def home_score(self):
-        pass
+        if self.home.name == self.offense:
+            return self.offscore
+        else:
+            return self.defscore
 
     @property
     def away_score(self):
-        pass
+        if self.away.name == self.offense:
+            return self.offscore
+        else:
+            return self.defscore
