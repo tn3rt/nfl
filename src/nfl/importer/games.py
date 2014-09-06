@@ -10,6 +10,8 @@ def build_games():
     game_ids = Play.objects.distinct('gameid')
     counter = 0
     for game_id in game_ids:
+        if not game_id:
+            continue
         plays = Play.objects.filter(gameid=game_id).order_by('clock')
         game = Game(
             gameid=game_id,
@@ -21,6 +23,9 @@ def build_games():
         game.save()
         for play in plays:
             game.update(push__plays=play)
+        if plays.count() < 50:
+            print('Game has less than 50 plays')
+            print(game.__repr__())
         counter += 1
         if counter % 25 == 0:
             print('Added ' + str(counter) + ' games')

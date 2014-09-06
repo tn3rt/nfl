@@ -1,6 +1,7 @@
 from mongoengine import Document, StringField, IntField
 from mongoengine import ListField, BooleanField, ReferenceField, DateTimeField, SortedListField
 from nfl.models.teams import Team
+from nfl.utils import pprint
 
 
 class Play(Document):
@@ -37,8 +38,31 @@ class Play(Document):
 
     @property
     def home_score(self):
-        pass
+        if self.home.name == self.offense:
+            return self.offscore
+        else:
+            return self.defscore
 
     @property
     def away_score(self):
-        pass
+        if self.away.name == self.offense:
+            return self.offscore
+        else:
+            return self.defscore
+
+    def __repr__(self):
+        string = ''
+        string += pprint('id', self.id)
+        string += pprint('gameid', self.gameid)
+        string += pprint('quarter', self.quarter)
+        string += pprint('min', self.min)
+        string += pprint('sec', self.sec)
+        string += pprint('offense', self.offense)
+        string += pprint('defense', self.defense)
+        string += pprint('down', self.down)
+        string += pprint('togo', self.togo)
+        string += pprint('offscore', self.offscore)
+        string += pprint('defscore', self.defscore)
+        string += pprint('description', self.description)
+        string += pprint('season', self.season)
+        return string
