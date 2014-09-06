@@ -48,3 +48,22 @@ class Play(Document):
             return self.offscore
         else:
             return self.defscore
+
+    def __repr__(self):
+        def pprint(tag, value):
+            return str(tag) + ':\t' + str(value) + '\n'
+        string = ''
+        string += pprint('id', self.id)
+        string += pprint('gameid', self.gameid)
+        string += pprint('quarter', self.quarter)
+        string += pprint('min', self.min)
+        string += pprint('sec', self.sec)
+        string += pprint('offense', self.offense)
+        string += pprint('defense', self.defense)
+        string += pprint('down', self.down)
+        string += pprint('togo', self.togo)
+        string += pprint('offscore', self.offscore)
+        string += pprint('defscore', self.defscore)
+        string += pprint('description', self.description)
+        string += pprint('season', self.season)
+        return string

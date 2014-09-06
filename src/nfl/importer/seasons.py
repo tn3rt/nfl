@@ -24,3 +24,7 @@ def build_season():
             doc.save()
             for game in games:
                 doc.update(push__games=game)
+
+            if games.count() < 16:
+                print('Season has less than 16 games')
+                print(season.__repr__())

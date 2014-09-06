@@ -6,7 +6,7 @@ from nfl.models.teams import Team
 class Season(Document):
     team = ReferenceField(Team)
     games = SortedListField(ReferenceField(Game), default=list)
-    season = IntField(min_value=1900, max_value=2100, required=True)
+    season = IntField(min_value=1900, max_value=2100, required=True, unique_with=['team'])
 
     meta = {
         'ordering': ['season']
@@ -28,3 +28,12 @@ class Season(Document):
     def playoffs(self):
         """Did we make the playoffs?"""
         return len(self.games) > 16
+
+    def __repr__(self):
+        def pprint(tag, value):
+            return str(tag) + ':\t' + str(value) + '\n'
+        string = ''
+        string += pprint('team', self.team)
+        string += pprint('season', self.season)
+        return string
+

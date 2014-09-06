@@ -4,7 +4,7 @@ from nfl.models.plays import Play
 
 
 class Game(Document):
-    gameid = StringField(max_length=20, required=True)
+    gameid = StringField(max_length=20, required=True, unique=True)
     home = ReferenceField(Team)
     away = ReferenceField(Team)
     plays = SortedListField(ReferenceField(Play), default=list)
@@ -34,3 +34,11 @@ class Game(Document):
         pass
         # TODO: Implement quarter marker
 
+    def __repr__(self):
+        def pprint(tag, value):
+            return str(tag) + ':\t' + str(value) + '\n'
+        string = ''
+        string += pprint('gameid', self.gameid)
+        string += pprint('date', self.date)
+        string += pprint('season', self.season)
+        return string

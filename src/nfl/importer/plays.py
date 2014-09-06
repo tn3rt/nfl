@@ -45,32 +45,37 @@ def build_plays():
             offset = -1
         return date_of_match.year + offset
 
-    def cast_int(value, default):
+    def cast_int(play, value, default):
         # None, '', '.B'
+        if value is None or value == '':
+            return default
         try:
             return int(value)
         except:
+            print('Exception casting ' + str(value) + ' as integer')
+            print(play.__repr__())
             return default
 
     counter = 0
     for play in Play.objects:
-        if not play.gameid:
-            print('Deleting empty document ' + str(play.id))
-            play.delete()
-            continue
-        play.min = cast_int(play.min, 60)
-        play.sec = cast_int(play.sec, 0)
-        play.down = cast_int(play.down, None)
-        play.togo = cast_int(play.togo, None)
-        play.yardline = cast_int(play.yardline, None)
-        play.defscore = cast_int(play.defscore, 0)
-        play.offscore = cast_int(play.offscore, 0)
-        play.date, play.home, play.away = parse_game_id(play.gameid)
-        play.possession = parse_team(play.offense) if play.offense else None
-        play.season = cast_int(play.season, parse_season(play.date))
-        play.save()
-        counter += 1
         if counter % 1000 == 0:
             print('Parsed ' + str(counter) + ' plays')
+        counter += 1
+        if not play.gameid:
+            print('Deleting empty document ' + str(play.id))
+            print(play.__repr__())
+            play.delete()
+            continue
+        play.min = cast_int(play, play.min, 60)
+        play.sec = cast_int(play, play.sec, 0)
+        play.down = cast_int(play, play.down, None)
+        play.togo = cast_int(play, play.togo, None)
+        play.yardline = cast_int(play, play.yardline, None)
+        play.defscore = cast_int(play, play.defscore, 0)
+        play.offscore = cast_int(play, play.offscore, 0)
+        play.date, play.home, play.away = parse_game_id(play.gameid)
+        play.possession = parse_team(play.offense) if play.offense else None
+        play.season = cast_int(play, play.season, parse_season(play.date))
+        play.save()
 
-    print('Parsed ' + str(Play.objects.count()) + ' plays')
+    print('Parsed ' + str(counter) + ' plays')
