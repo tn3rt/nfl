@@ -1,6 +1,7 @@
 from mongoengine import Document, StringField, SortedListField, IntField, ReferenceField
 from nfl.models.games import Game
 from nfl.models.teams import Team
+from nfl.utils import pprint
 
 
 class Season(Document):
@@ -30,8 +31,6 @@ class Season(Document):
         return len(self.games) > 16
 
     def __repr__(self):
-        def pprint(tag, value):
-            return str(tag) + ':\t' + str(value) + '\n'
         string = ''
         string += pprint('team', self.team)
         string += pprint('season', self.season)

@@ -1,4 +1,6 @@
 from mongoengine import Document, StringField
+from nfl.utils import pprint
+
 
 AFC_N = (
             ('BAL', 'Baltimore Ravens'),
@@ -73,8 +75,6 @@ class Team(Document):
     name = StringField(max_length=3, choices=TEAMS, required=True, unique=True)
 
     def __repr__(self):
-        def pprint(tag, value):
-            return str(tag) + ':\t' + str(value) + '\n'
         string = ''
         string += pprint('conference', self.conference)
         string += pprint('division', self.division)

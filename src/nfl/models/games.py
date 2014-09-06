@@ -1,6 +1,7 @@
 from mongoengine import Document, StringField, SortedListField, ReferenceField, IntField, DateTimeField
 from nfl.models.teams import Team
 from nfl.models.plays import Play
+from nfl.utils import pprint
 
 
 class Game(Document):
@@ -35,8 +36,6 @@ class Game(Document):
         # TODO: Implement quarter marker
 
     def __repr__(self):
-        def pprint(tag, value):
-            return str(tag) + ':\t' + str(value) + '\n'
         string = ''
         string += pprint('gameid', self.gameid)
         string += pprint('date', self.date)

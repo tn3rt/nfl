@@ -1,6 +1,7 @@
 from mongoengine import Document, StringField, IntField
 from mongoengine import ListField, BooleanField, ReferenceField, DateTimeField, SortedListField
 from nfl.models.teams import Team
+from nfl.utils import pprint
 
 
 class Play(Document):
@@ -50,8 +51,6 @@ class Play(Document):
             return self.defscore
 
     def __repr__(self):
-        def pprint(tag, value):
-            return str(tag) + ':\t' + str(value) + '\n'
         string = ''
         string += pprint('id', self.id)
         string += pprint('gameid', self.gameid)
